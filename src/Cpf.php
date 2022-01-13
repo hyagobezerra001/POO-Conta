@@ -1,0 +1,19 @@
+<?php
+
+class Cpf
+{
+    private string $cpf;
+
+    public function __construct(string $cpf)
+    {
+        $valid = (int)$cpf;
+        
+
+        $this->cpf = $cpf;
+    }
+
+    public function getCpf():string
+    {
+        return $this->cpf;
+    }
+}

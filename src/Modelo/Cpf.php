@@ -1,14 +1,13 @@
 <?php
 
+namespace Modelo;
+
 class Cpf
 {
     private string $cpf;
 
     public function __construct(string $cpf)
     {
-        $valid = (int)$cpf;
-        
-
         $this->cpf = $cpf;
     }
 

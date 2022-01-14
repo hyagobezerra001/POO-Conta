@@ -1,5 +1,7 @@
 <?php
 
+namespace Modelo\Conta;
+
 class Conta
 {
     //atributos
@@ -53,7 +55,6 @@ class Conta
         $contaDestino->depositar($valorATransferir);
     }
 
-   
 
     //getters e setters
 

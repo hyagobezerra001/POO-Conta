@@ -1,20 +1,19 @@
 <?php
 
-namespace Modelo\Conta;
+namespace Alura\Banco\Modelo\Conta;
 
-class Conta
+abstract class Conta
 {
     //atributos
-    private Cliente $cliente;
-    private float $saldo;
+    private Titular $titular;
+    protected float $saldo;
     private static $numeroDeContas = 0;
 
     //metodo magico construct
-    public function __construct(Cliente $cliente)
+    public function __construct(Titular $titular)
     {
-        $this->cliente = $cliente;
+        $this->titular = $titular;
         $this->saldo = 0;
-
         self::$numeroDeContas++;
     }
 
@@ -26,12 +25,15 @@ class Conta
     //metodos
     public function sacar(float $valorASacar)
     {
-        if ($valorASacar > $this->saldo) {
+
+        $tarifaSaque = $valorASacar * $this->percentualTarifa();
+        $valorTarifa = $valorASacar + $tarifaSaque;
+        if ($valorTarifa > $this->saldo) {
             echo "Limite insuficiente";
             return;
         }
 
-        $this->saldo -= $valorASacar;
+        $this->saldo -= $valorTarifa;
     }
 
     public function depositar(float $valorDeposito)
@@ -44,18 +46,6 @@ class Conta
         $this->saldo += $valorDeposito;
     }
 
-    public function trasferir(float $valorATransferir, Conta $contaDestino): void
-    {
-        if ($valorATransferir > $this->saldo) {
-            echo "Saldo Insuficiente";
-            return;
-        }
-
-        $this->sacar($valorATransferir);
-        $contaDestino->depositar($valorATransferir);
-    }
-
-
     //getters e setters
 
     public function getSaldo():float
@@ -63,18 +53,21 @@ class Conta
         return $this->saldo;
     }
     
-    public function getNomeCliente():string
+    public function getNomeTitular():string
     {
-        return $this->cliente->getNome();
+        return $this->titular->getNome();
     }
 
-    public function getCpfCliente():string
+    public function getCpfTitular():string
     {
-        return $this->cliente->getCpf();
+        return $this->titular->getCpf();
     }
   
     public static function recuperaContas():int
     {
         return self::$numeroDeContas;
     }
+
+    abstract protected function percentualTarifa(): float;
+
 }

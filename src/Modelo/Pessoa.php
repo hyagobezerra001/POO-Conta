@@ -1,6 +1,6 @@
 <?php
 
-namespace Modelo;
+namespace Alura\Banco\Modelo;
 
 class Pessoa
 {
@@ -27,8 +27,7 @@ class Pessoa
         return $this->nome;
     }
 
-   
-    public function getCpf():string
+   public function getCpf():string
     {
         return $this->cpf->getCpf();
     }

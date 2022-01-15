@@ -1,26 +1,16 @@
 <?php
 
-//require 'src/Conta.php';
-//require 'src/Pessoa.php';
-//require 'src/Endereco.php';
-//require 'src/Cliente.php';
-//require 'src/Cpf.php';
+require_once 'autoload.php';
 
+use Alura\Banco\Modelo\Conta\Titular;
+use Alura\Banco\Modelo\Endereco;
+use Alura\Banco\Modelo\Cpf;
+use Alura\Banco\Modelo\Conta\ContaCorrente;
 
+$endereco = new Endereco('Petrópolis', 'um bairro', 'minha rua', '71B');
+$vinicius = new Titular(new Cpf('123.456.789-10'), 'Vinicius Dias', $endereco);
+$primeiraConta = new ContaCorrente($vinicius);
+$primeiraConta->depositar(500);
+$primeiraConta->sacar(300); // isso é ok
 
-$endereco = new Endereco("Rio de Janeiro", "Constelação", "Rua um", "1055");
-$hyago = new Cliente(new Cpf('123.151.656.70'), 'Hyago Bezerra', $endereco);
-$conta001 = new Conta($hyago);
-$conta001->depositar(11500);
-$conta001->sacar(300);
-
-$pedro = new Cliente(new Cpf('255-888-252-10'), 'Pedro Silva', $endereco);
-$conta002 = new Conta($pedro);
-$conta002->depositar(1000);
-$conta001->trasferir(1000, $conta002);
-
-
-
-echo "Conta Hyago - Saldo: " . $conta001->getSaldo() . PHP_EOL;
-echo "Conta Pedro - Saldo: " . $conta002->getSaldo() . PHP_EOL;
-echo Conta::recuperaContas();
+echo $primeiraConta->getNomeTitular() . PHP_EOL;

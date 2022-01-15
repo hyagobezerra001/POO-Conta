@@ -10,8 +10,9 @@ namespace Alura\Banco\Modelo;
  * @property string $numero
  * @property string $bairro
  */
-class Endereco
+final class Endereco
 {
+    use GetAtributos;
     private string $cidade;
     private string $bairro;
     private string $rua;
@@ -25,19 +26,7 @@ class Endereco
         $this->numero = $numero;
     }
 
-    public function __toString():string
-    {
-        return "{$this->rua}, {$this->numero}, {$this->bairro}, {$this->cidade}";
-    }
 
-    public function __get(string $nome)
-    {
-        return $this->$nome . PHP_EOL;
-    }
 
-  public function __set(string $name, $value): void
-  {
-      echo "Alterando '$name' de '$this->cidade' para '$value'\n";
-      $this->$name = $value;
-  }
+
 }

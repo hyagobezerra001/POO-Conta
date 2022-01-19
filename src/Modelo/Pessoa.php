@@ -18,8 +18,7 @@ class Pessoa
     final protected function validaNome(string $nomeTitular)
     {
         if (strlen($nomeTitular) < 5) {
-            echo "Nome Precisa ter mais que 5 caracteres";
-            exit();
+            throw new ErroPessoaException($nomeTitular);
         }
     }
 

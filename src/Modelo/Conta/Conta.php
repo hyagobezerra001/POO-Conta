@@ -2,6 +2,7 @@
 
 namespace Alura\Banco\Modelo\Conta;
 
+
 abstract class Conta
 {
     //atributos
@@ -29,8 +30,7 @@ abstract class Conta
         $tarifaSaque = $valorASacar * $this->percentualTarifa();
         $valorTarifa = $valorASacar + $tarifaSaque;
         if ($valorTarifa > $this->saldo) {
-            echo "Limite insuficiente";
-            return;
+            throw new SaldoInsuficienteException($valorASacar, $this->saldo);
         }
 
         $this->saldo -= $valorTarifa;
@@ -39,8 +39,7 @@ abstract class Conta
     public function depositar(float $valorDeposito)
     {
         if ($valorDeposito < 0) {
-            echo "Valor Negativo: Operação Negada";
-            return;
+            throw new \InvalidArgumentException();
         }
 
         $this->saldo += $valorDeposito;
